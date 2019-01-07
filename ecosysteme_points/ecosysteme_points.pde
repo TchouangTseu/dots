@@ -1,120 +1,4 @@
-//--------------------------------------------------------------//
-//--------------------------------------------------------------//
-//--------------------------------------------------------------//
-//
 
-
-//un point  a une position, une vitesse, une façon de se déplacer,
-//une façon de s'afficher et est sociable
-//--------------------------------------------------------------//
-
-class Point implements IDisplaiyable, ISociable {
-  float x, y, vx, vy;
-  ArrayList<IDisplaiyable> collegues;
-  int rayon = 200;
-  int id;
-
-
-  Point(float x, float y, int id) {
-    this.x = x;
-    this.y = y;
-    this.id = id;
-
-    //float v =
-
-    //jouer sur les valeurs vx et vy
-    //même vitesse pour tous, vitesse
-    //individualisée, ...
-    this.vx = (random(id) - id/2)/10;
-    this.vy = (random(id) - id/2)/10;
-
-    this.collegues = new ArrayList<IDisplaiyable>();
-  }
-
-  Point makeRandomPoint(float x, float y, int id) {
-    return new Point(random(x), random(y), id);
-  }
-
-  void move() { 
-
-    vx += (random(2) -1)/11;
-    vy += (random(2) -1)/11;
-
-    float i = x + vx;
-    float j = y + vy;
-
-    if (i > width || i < 0) this.vx *=-1;
-    if (j > height || j < 0) this.vy *= -1; 
-
-    x += vx;
-
-    y += vy;
-  }
-
-  float distance(Point p) {
-    return dist(x, y, p.x, p.y);
-  }
-
-  void updateCollegues(ArrayList<IDisplaiyable> totalPoints) {
-    this.collegues = new ArrayList<IDisplaiyable>();
-
-    for (int i = 0; i < totalPoints.size(); i++) {
-      //ce serait plus propre d'avoir une fonction 
-      //boolean insideRayon(Point p)
-      if (this.x - rayon < totalPoints.get(i).getX() &&
-        this.x + rayon > totalPoints.get(i).getX() &&
-        this.y - rayon < totalPoints.get(i).getY() &&
-        this.y + rayon > totalPoints.get(i).getY()) {
-        collegues.add(totalPoints.get(i)/*.getP()*/);
-      }
-    }
-  }
-
-  ArrayList<IDisplaiyable> getCollegues() {
-    return this.collegues;
-  }
-
-  void setCollegues(ArrayList<IDisplaiyable> collegues) {
-    this.collegues = collegues;
-  }
-
-
-  void drawConnection() {
-    stroke(37, 51, 85, 75);
-    strokeWeight(2);
-    for (int i = 0; i < collegues.size(); i++) {
-      line(x, y, collegues.get(i).getX(), 
-        collegues.get(i).getY());
-      /*collegues.remove(i);*/
-    }
-  }
-
-  void display() {
-    stroke(37, 51, 85);
-    fill(37, 51, 85, 20);
-    strokeWeight(8);
-    ellipse(this.x, this.y, 8, 8);
-  }
-  boolean equals(Point p) {
-    return id == p.id;
-  }
-  float getX() {
-    return x;
-  }
-  float getY() {
-    return y;
-  }
-  Point getP() {
-    return this;
-  }
-  void transmit() {
-  }
-  void destroy() {
-  }
-  int quelGenre() {
-    return 10/*"Point"*/;
-  }
-}
 //les classes de la famille message ont
 // - un point en support, les messages se déplaçant
 //    de point en point
@@ -187,8 +71,8 @@ class Message implements ISociable, IEvenementiel {
   }
 
   boolean hasEvenement() {
-    print(" "+e.isConsistant());
-    print(" "+e.getContenu());
+    //print(" "+e.isConsistant());
+    //print(" "+e.getContenu());
     return e.isConsistant();
   }
   Evenement getEvenement() {
@@ -344,85 +228,7 @@ class MessageV extends MessageDisp /*implements IDisplaiyable*/ {
   }
 }
 
-public class Env {
-  ArrayList<IDisplaiyable> mListe = new ArrayList<IDisplaiyable>();
-  ArrayList<Evenement> eListe = new ArrayList<Evenement>();
-  ArrayList<IEvenementiel> evenementiels = new ArrayList<IEvenementiel>();
-  FabriqueMessage m = new FabriqueMessage();
 
-  void initialisation(int nbPoints, int nbMessagesR, int nbMessagesV) {
-    //p sert à créer des points à des positions
-    //aléatoires.
-    //à voir : faire de p une fabrique pour
-    //         avoir des points qui ne portent
-    //         pas de message
-    Point p = new Point(width, height, -1);
-
-    for (int i = 0; i < nbPoints; i++) {
-      mListe.add(p.makeRandomPoint(width, height, i));
-    }
-
-    for (int i = 0; i < nbMessagesR; i++) {
-      Message tmp = m.getMessage(2, mListe.get(
-        (int) random(mListe.size())).getP());
-      mListe.add((IDisplaiyable)tmp);
-      evenementiels.add(tmp);
-    }
-    for (int i = 0; i < nbMessagesV; i++) {
-      Message tmp = m.getMessage(1, mListe.get(
-        (int) random(mListe.size())).getP());
-      mListe.add((IDisplaiyable)tmp);
-      evenementiels.add(tmp);
-    }
-  }
-
-  void setEvenements(ArrayList<Evenement> e) {
-
-    eListe = e;
-  }
-
-  void updateEvenements() {
-
-    ArrayList<Evenement> tmp = new ArrayList<Evenement>();
-
-    for (int i = 0; i < evenementiels.size(); i++) {
-      
-      if (evenementiels.get(i).hasEvenement()) {
-        print("traitement signal " + i + " ");
-        tmp.add(evenementiels.get(i).getEvenement());
-      }
-    }
-    setEvenements(tmp);
-  }
-
-  void traiteEvenements() {
-    for (int i = 0; i < eListe.size(); i++) {
-
-      if (eListe.get(i).getContenu().equals("mort")) {
-
-        for (int j = 0; j < mListe.size(); j++) {
-          if (eListe.get(i).getEmetteur().equals(
-            mListe.get(j))) {
-            mListe.set(j, m.getMessage(3, 
-              mListe.get(j).getP()));
-          }
-        }
-      }
-    }
-  }
-
-  void nextStep() {
-    for (int i = 0; i < mListe.size(); i++) {
-      mListe.get(i).move();
-      mListe.get(i).updateCollegues(mListe);
-      mListe.get(i).transmit();
-      mListe.get(i).drawConnection();  
-      mListe.get(i).display();
-    }
-    updateEvenements();
-    traiteEvenements();
-  }
-}
 
 
 
@@ -458,33 +264,7 @@ class Evenement {
     consistant = b;
   }
 }
-/*--------------------------------------------------------------*/
-/*--------------------------------------------------------------*/
-//                partie interfaces
 
-public interface ISociable {
-  ArrayList<IDisplaiyable> getCollegues();
-  void setCollegues(ArrayList<IDisplaiyable> collegues);
-  void updateCollegues(ArrayList<IDisplaiyable> collegues);
-}
-
-public interface IDisplaiyable extends ISociable {
-  void display();
-  void move();
-
-  void drawConnection();
-  void transmit();
-  float getX();            /*interface un peu degueu, trop de trucs*/
-  float getY();            /*à gerer*/
-  Point getP();
-  //introspection maison
-  int quelGenre();
-}
-
-public interface IEvenementiel {
-  boolean hasEvenement();
-  Evenement getEvenement();
-}
 
 
 
@@ -498,9 +278,9 @@ public interface IEvenementiel {
 
 
 
-final int nbR = 3;
+final int nbR = 15;
 final int nbV = 5;
-final int nbP = 10 + nbR + nbV;
+final int nbP = 15 + nbR + nbV;
 //ArrayList<IDisplaiyable> mListe = new ArrayList<IDisplaiyable>();
 Env env = new Env();
 
@@ -508,20 +288,11 @@ Env env = new Env();
 
 void setup() {
   size(1280, 720);
-  env.initialisation(18, 3, 5);
-
-  //noLoop();
+  env.initialisation(nbP, nbR, nbV);
 }
 
 void draw() {
 
   background(238, 232, 141);
   env.nextStep();
-  /*for(int i = 0; i < mListe.size(); i++){
-   mListe.get(i).move();
-   mListe.get(i).updateCollegues(mListe);
-   mListe.get(i).transmit();
-   mListe.get(i).drawConnection();  
-   mListe.get(i).display();
-   }*/
 }
