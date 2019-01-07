@@ -12,7 +12,7 @@ class MessageMort extends MessageDisp {
     p.display();
     noStroke();
     fill(126, 43, 151, 50);
-    ellipse(p.getX(), p.getY(), 40, 40);
+    ellipse(p.getX(), p.getY(), 50, 50);
     cpt++;
     if (cpt > t) {
       this.setEvenement("disparait", true);

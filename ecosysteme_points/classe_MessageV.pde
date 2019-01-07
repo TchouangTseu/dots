@@ -13,7 +13,7 @@ class MessageV extends MessageDisp{
     p.display();
     noStroke();
     fill(18, 173, 43, 90);
-    ellipse(p.getX(), p.getY(), 40, 40);
+    ellipse(p.getX(), p.getY(), 50, 50);
   }
   MessageDisp kill(MessageDisp m, Point p) {
 

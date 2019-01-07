@@ -5,7 +5,7 @@ class MessageR extends MessageDisp{
   int limitToMultiply;
   public MessageR(Point p) {
     super(p);
-    limitToMultiply = 13 + ((int) random(5 - 2.5));
+    limitToMultiply = 3 + ((int) random(5 - 2.5));
   }
   void display() {
     p.display();
@@ -16,7 +16,7 @@ class MessageR extends MessageDisp{
     //implémentation spécifique des comportements
     //qui est à la place réalisée par héritage de
     //la classe message
-    ellipse(p.getX(), p.getY(), 40, 40);
+    ellipse(p.getX(), p.getY(), 50, 50);
   }
   void move() {
     p.vx = p.vx + (random(2) -1)/29;
@@ -37,7 +37,7 @@ class MessageR extends MessageDisp{
     super.transmit();
     if (nbTransmit > limitToMultiply) {
       this.setEvenement("multiplie", true);
-      nbTransmit = 0;
+      nbTransmit = 0; 
     }
   }
 

@@ -20,8 +20,8 @@ class Point implements IDisplaiyable, ISociable {
     //jouer sur les valeurs vx et vy
     //même vitesse pour tous, vitesse
     //individualisée, ...
-    this.vx = (random(id) - id/2)/13;
-    this.vy = (random(id) - id/2)/13;
+    this.vx = (random(id) - id/2)/19;
+    this.vy = (random(id) - id/2)/19;
 
     this.collegues = new ArrayList<IDisplaiyable>();
   }
@@ -75,20 +75,19 @@ class Point implements IDisplaiyable, ISociable {
 
 
   void drawConnection() {
-    stroke(37, 51, 85, 75);
+    stroke(37, 51, 85, 60);
     strokeWeight(2);
     for (int i = 0; i < collegues.size(); i++) {
       line(x, y, collegues.get(i).getX(), 
         collegues.get(i).getY());
-      /*collegues.remove(i);*/
     }
   }
 
   void display() {
     stroke(37, 51, 85);
-    fill(37, 51, 85, 20);
-    strokeWeight(8);
-    ellipse(this.x, this.y, 8, 8);
+    fill(37, 51, 85);
+    strokeWeight(5);
+    ellipse(this.x, this.y, 5, 5);
   }
   boolean equals(Point p) {
     return id == p.id;

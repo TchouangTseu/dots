@@ -74,6 +74,7 @@ public class Env {
           (int) random(mListe.size())).getP());
         mListe.add((IDisplaiyable)tmp);
         evenementiels.add(tmp);
+        eListe.get(i).setConsistant(false);
       }
 
       if (eListe.get(i).getContenu().equals("disparait")) {

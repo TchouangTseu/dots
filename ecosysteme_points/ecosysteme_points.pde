@@ -34,8 +34,8 @@
 
 
 final int nbR = 20;
-final int nbV = 5;
-final int nbP = 30 + nbR + nbV;
+final int nbV = 4;
+final int nbP = 40 + nbR + nbV;
 //ArrayList<IDisplaiyable> mListe = new ArrayList<IDisplaiyable>();
 Env env = new Env();
 
