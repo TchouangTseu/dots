@@ -3,7 +3,7 @@
 //la couleur s'assombrirait jusqu'à disparaitre pour réapparaitre
 //en un nouveau message vert-jeune aléatoire
 /*--------------------------------------------------------------*/
-class MessageV extends MessageDisp /*implements IDisplaiyable*/ {
+class MessageV extends MessageDisp{
 
   public MessageV(Point p) {
     super(p);
@@ -25,13 +25,7 @@ class MessageV extends MessageDisp /*implements IDisplaiyable*/ {
     for (int i = 0; i < getCollegues().size(); i++) {
 
       if (getCollegues().get(i).quelGenre() == 2) {
-        //print("debug "+i+" genre collegue "+getCollegues().get(i).quelGenre()+" ");
-        /* getCollegues().set(i, 
-         kill((MessageDisp) getCollegues().get(i), 
-         getCollegues().get(i).getP()));*/
-        ((Message)getCollegues().get(i)).setEvenement("mort", true);/*.setContenu("mort");*/
-        //((Message)getCollegues().get(i)).getEvenement().setConsistant(true);
-        print(" "+((Message)getCollegues().get(i)).getEvenement().getContenu());
+        ((Message)getCollegues().get(i)).setEvenement("mort", true);
         return;
       }
     }

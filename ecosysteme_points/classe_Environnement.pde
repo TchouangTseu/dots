@@ -1,8 +1,8 @@
-
 //classe environnement, gére le processus de création d'un nouvel
 //état du système grâce à une liste sur tous les objets présents
 //et un mécanisme de récupération et traitement des évenements
 /*--------------------------------------------------------------*/
+
 public class Env {
   ArrayList<IDisplaiyable> mListe = new ArrayList<IDisplaiyable>();
   ArrayList<Evenement> eListe = new ArrayList<Evenement>();
@@ -60,8 +60,9 @@ public class Env {
 
         for (int j = 0; j < mListe.size(); j++) {
           if (eListe.get(i).getEmetteur().equals(mListe.get(j))) {
-            mListe.set(j, m.getMessage(3, 
-              mListe.get(j).getP()));
+            Message tmp = m.getMessage(3, mListe.get(j).getP());
+            mListe.set(j, (IDisplaiyable) tmp);
+            evenementiels.add(tmp);
           }
         }
       }

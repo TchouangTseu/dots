@@ -1,7 +1,7 @@
 //message rouge transformé par l'action d'un vert
 //classe sous exploitée
 /*--------------------------------------------------------------*/
-class MessageMort extends MessageDisp /*implements IDisplaiyable*/ {
+class MessageMort extends MessageDisp {
   int t;
   int cpt;
   public MessageMort(Point p) {
@@ -9,6 +9,10 @@ class MessageMort extends MessageDisp /*implements IDisplaiyable*/ {
     t = 15 + ((int) (random(7) - 3.5));
   }
   void display() {
+    p.display();
+    noStroke();
+    fill(126, 43, 151, 50);
+    ellipse(p.getX(), p.getY(), 40, 40);
     cpt++;
     if (cpt > t) {
       this.setEvenement("disparait", true);

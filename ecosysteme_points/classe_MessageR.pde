@@ -1,7 +1,7 @@
 //message rouge
 //accelre le déplacement du point qui l'héberge et se multiplie
 /*--------------------------------------------------------------*/
-class MessageR extends MessageDisp /*implements IDisplaiyable*/ {
+class MessageR extends MessageDisp{
   int limitToMultiply;
   public MessageR(Point p) {
     super(p);
