@@ -6,7 +6,7 @@ class MessageMort extends MessageDisp {
   int cpt;
   public MessageMort(Point p) {
     super(p);
-    t = 15 + ((int) (random(7) - 3.5));
+    t = 40 + ((int) (random(7) - 3.5));
   }
   void display() {
     //p.display();

@@ -5,7 +5,7 @@ class MessageR extends MessageDisp{
   int limitToMultiply;
   public MessageR(Point p) {
     super(p);
-    limitToMultiply = 10 + ((int) random(5 - 2.5));
+    limitToMultiply = 7 + ((int) random(5 - 2.5));
   }
   void display() {
     //p.display();
